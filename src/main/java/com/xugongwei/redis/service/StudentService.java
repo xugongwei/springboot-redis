@@ -32,27 +32,27 @@ public class StudentService {
      */
     @Cacheable(key = "'student_'+#id")
     public Student getStudent(Long id) {
-        return studentMapper.selectObject(id);
+        return studentMapper.queryObject(id);
     }
 
     @Cacheable(key = "#root.method.name")
     public List<Student> listStudent(Map<String, Object> map) {
-        return studentMapper.selectList(map);
+        return studentMapper.queryList(map);
     }
 
     @CacheEvict(key = "'student_' +#id")
     public Integer deleteStudent(Long id) {
-        return studentMapper.deleteStudent(id);
+        return studentMapper.delete(id);
     }
 
     @CachePut(key = "'student_'+#result.id")
     public Student updateStudent(Student student) {
-        studentMapper.updateStudent(student);
+        studentMapper.update(student);
         return student;
     }
 
     public Student insertStudent(Student student) {
-        studentMapper.insertStudent(student);
+        studentMapper.save(student);
         return student;
     }
 }
